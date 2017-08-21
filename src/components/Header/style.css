@@ -1,0 +1,23 @@
+.header{
+    height: 150px;
+    background-color:red;
+    position:relative;
+}
+
+.header img{
+    background-color: white !important;
+}
+
+.header .name{
+    font-size: 18px;
+}
+
+.header .intro{
+    position: absolute;
+    bottom:-25px;
+    width:80px;
+    height:80px; 
+     margin: 0 auto;
+     left:0;
+     right: 0;
+}

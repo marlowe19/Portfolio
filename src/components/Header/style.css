@@ -1,23 +1,38 @@
-.header{
-    height: 150px;
-    background-color:red;
-    position:relative;
+
+
+.port-header{
+    min-height: 150px;
+    
 }
 
-.header img{
+.port-header img{
     background-color: white !important;
 }
 
-.header .name{
-    font-size: 18px;
+.port-header .image{
+    margin: 0 auto;
+}
+.port-header .name{
+    font-size: 26px;
+}
+.port-header .banner{
+    width: 100%;
+    height: 150px;
+    background-color: rgba(red, green, blue, 0.6)
+}
+.introduction{
+    margin-top:-65px;
+}
+.port-header h1,h2{
+    text-align:center;
 }
 
-.header .intro{
-    position: absolute;
-    bottom:-25px;
-    width:80px;
-    height:80px; 
-     margin: 0 auto;
-     left:0;
-     right: 0;
+.port-header .image{
+    background-color: rgba(243,246,248,.94);
+    width:128px;
+    height:128px;
+    border: 4px solid #fff;
+        border-radius: 50%;
+        box-shadow: inset 0 1.5px 3px 0 rgba(0,0,0,.15), 0 1.5px 3px 0 rgba(0,0,0,.15);
+
 }

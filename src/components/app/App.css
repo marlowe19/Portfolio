@@ -1,7 +1,9 @@
 .App {
-  text-align: center;
 }
 
+html{
+  background-color:white;
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -21,4 +23,21 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+section{
+  padding-top:5em;
+  padding-bottom:5em;
+}
+
+.projects{
+  background-color: #d4f0fc;
+
+}
+.experience{
+  color: #7f8c97;
+  background-color: #e9f0f5;
+}
+.skills{
+  background-color: #f1ede2;
 }

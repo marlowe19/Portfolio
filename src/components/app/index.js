@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import './App.css';
 //import Experience from '../Experience'
 import { Divider,Icon } from 'semantic-ui-react'
-//import Projects from '../Project'
-//import Education from '../Education'
+import Projects from '../Project'
+import Education from '../Education'
 import TimeLine from '../Timeline'
 import FireStore from '../../FireStore'
 import Recommendations from '../Recommendations'

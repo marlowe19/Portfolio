@@ -1,3 +1,5 @@
+//@ts-check
+//@flow
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
@@ -85,7 +87,9 @@ class App extends Component {
                
         </section>
         <section className="experience">
-          <StatisticsSection/>
+          <div className="container">
+            <StatisticsSection/> 
+            </div>
         </section>
       </div>
     );

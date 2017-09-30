@@ -5,7 +5,7 @@ import './style.css';
 export default class NotFound extends Component {
  
   render() {
-    const { ...props } = this.props;
+   
     return (
       <div className="Not Found" {...props}>
         <h1>

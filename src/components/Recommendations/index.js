@@ -1,5 +1,6 @@
+//@ts-check
 
-import { Button, Comment, Form, Transition,Divider } from 'semantic-ui-react'
+import { Comment, Icon, Divider, Header } from 'semantic-ui-react'
 
 import React, { Component } from 'react';
 import FireStore from '../../FireStore';
@@ -22,58 +23,15 @@ export default class Recommendations extends Component {
     })
 
   }
-  handleNameInput = (e) => {
-    var value = e.target.value
-    console.log(value);
-    this.setState({
-      name: value
-    })
-  }
-  handleTextArea = (e) => {
-    var value = e.target.value
-
-    if (e.target.name === "recommendation") {
-      this.setState({
-        textArea: value
-      })
-    } else {
-      this.setState({
-        tip: value
-      })
-    }
-
-  }
-  handleSubmit = () => {
-    const { name, textArea, tip } = this.state
-    var newRecomendation = {
-      author: name,
-      content: textArea,
-      date: new Date().toString(),
-      tip
-    }
-
-    FireStore.put("/recommendations", newRecomendation,
-      value => {
-        console.log('status', value)
-      })
-  }
+ 
  toggleVisibility = () => this.setState({ formVisible: !this.state.formVisible })
   render() {
   const {recommendations} = this.state 
     return (
       <div>
-        <Button onClick={this.toggleVisibility} color="green" size="huge" content='review plaatsen' icon='plus' labelPosition='left' />
+         <Header>Reviews</Header>
            <Divider/>
-         <Transition visible={this.state.formVisible} animation='scale' duration={500}>
-          <Form onSubmit={this.handleSubmit} reply>
-            <Form.Input onChange={this.handleNameInput} size="large" label="Naam" name="name" />
-            <Form.TextArea name="recommendation" label="Recommendation" autoHeight onChange={this.handleTextArea} />
-            <Form.TextArea name="tip" label="Tips" autoHeight onChange={this.handleTextArea} />
-            <Button content='Plaatsen' labelPosition='left' icon='edit' primary />
-              <Divider/>
-          </Form>
-          </Transition>
-        <Comment.Group size="massive">
+        <Comment.Group size={this.props.size}>
          
           
            
@@ -86,14 +44,15 @@ export default class Recommendations extends Component {
 }
 
 function RecommendationComponent({item}){
+  const url = `https://api.adorable.io/avatars/285/${item.key}@adorable.png`
   return( <Comment>
-            <Comment.Avatar as='a' src='/assets/images/avatar/small/joe.jpg' />
+            <Comment.Avatar as='a' src={url} />
             <Comment.Content>
               <Comment.Author as='a'>{item.author}</Comment.Author>
               <Comment.Metadata>
                 <span>{timer(item.date)}</span>
               </Comment.Metadata>
-              <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
+              <Comment.Text> <Icon name='quote left' size='large' />Dude, this is awesome. Thanks so much <Icon name='quote right' size='large' /></Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
               </Comment.Actions>
@@ -125,7 +84,7 @@ function RecommendationComponent({item}){
         time = time.replace(/\.\d+/, ""); // remove milliseconds
         time = time.replace(/-/, "/").replace(/-/, "/");
         time = time.replace(/T/, " ").replace(/Z/, " UTC");
-        time = time.replace(/([\+\-]\d\d)\:?(\d\d)/, " $1$2"); // -04:00 -> -0400
+        time = time.replace(/([+ -]\d\d):?(\d\d)/, " $1$2"); // -04:00 -> -0400
         time = new Date(time * 1000 || time);
 
         var now = new Date();
@@ -136,7 +95,7 @@ function RecommendationComponent({item}){
         var years = days / 365;
 
         return templates.prefix + (
-        seconds < 45 && template('seconds', seconds) || seconds < 90 && template('minute', 1) || minutes < 45 && template('minutes', minutes) || minutes < 90 && template('hour', 1) || hours < 24 && template('hours', hours) || hours < 42 && template('day', 1) || days < 30 && template('days', days) || days < 45 && template('month', 1) || days < 365 && template('months', days / 30) || years < 1.5 && template('year', 1) || template('years', years)) + templates.suffix;
+        (seconds < 45 && template('seconds', seconds)) || (seconds < 90 && template('minute', 1)) || (minutes < 45 && template('minutes', minutes)) || (minutes < 90 && template('hour', 1)) || (hours < 24 && template('hours', hours)) || (hours < 42 && template('day', 1)) || (days < 30 && template('days', days)) || (days < 45 && template('month', 1)) || (days < 365 && template('months', days / 30)) || (years < 1.5 && template('year', 1)) || template('years', years)) + templates.suffix;
     };
 
     var elements = document.getElementsByClassName('timeago');

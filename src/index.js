@@ -5,6 +5,8 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import './bootstrap.min.css';
 import * as firebase from 'firebase';
+window.addEventListener("keypress", keystroke);
+
 
 firebase.initializeApp({ apiKey: "AIzaSyBPWHwMJnhnoD4xlCUgRwFeYB50vs8uo8Q",
     authDomain: "marloweportfolio.firebaseapp.com",
@@ -14,6 +16,17 @@ firebase.initializeApp({ apiKey: "AIzaSyBPWHwMJnhnoD4xlCUgRwFeYB50vs8uo8Q",
     messagingSenderId: "213985762349"
    });
 
+   
+   firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      window.user = user;
+    } else {
+      window.user = null;
+    }
+  });
+   function keystroke(e){
+   
+  }
 
 ReactDOM.render(
   <Routes />,

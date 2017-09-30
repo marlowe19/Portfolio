@@ -1,14 +1,4 @@
-/**
- * Created by Marlowe on 2/27/2017.
- */
 
-
-//firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-//    // Handle Errors here.
-//    var errorCode = error.code;
-//    var errorMessage = error.message;
-//    // ...
-//});
 import * as firebase from 'firebase';
 
 const FireStore = {
@@ -30,34 +20,26 @@ const FireStore = {
     },
     login: function (credentials, callback) {
 
-        firebase.auth().signInWithEmailAndPassword(credentials.username, credentials.password).then(function(response) {
-           
-            if (callback != null) {
-                //console.log("sign in from in the function", response);
-                callback(response);
-            }
-        }).catch(function (error) {
-            // Handle Errors here
-            console.log("error", error);
-            if (callback != null) {
-                //console.log("sign in from in the function", response);
-                callback(error);
-            }
-            // ...
-            });
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                window.user = user;
-      
-                FireStore.subscribe("Tenants/1/users/" + user.uid, value => {
-                    window.user.profile = value;
-                });
-                // User is signed in.
-            } else {
-                window.user = null;
-                console.log("no user logged in");
-            }
-        });
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+     
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+         // This gives you a Google Access Token. You can use it to access the Google API.
+         //var token = result.credential.accessToken;
+         // The signed-in user info.
+         //var user = result.user;
+         // ...
+       }).catch(function(error) {
+         // Handle Errors here.
+         //var errorCode = error.code;
+         //var errorMessage = error.message;
+         // The email of the user's account used.
+         //var email = error.email;
+         // The firebase.auth.AuthCredential type that was used.
+        // var credential = error.credential;
+         // ...
+       });
+       
     },
     subscribe: function(location,callback){
         console.log("starting Request", location)
@@ -75,21 +57,22 @@ const FireStore = {
             }
         });
     },
-    update(location, object, callback) {
+    update(location, item, callback) {
+        console.log("object to update",item)
         const databaseRefPut = firebase.database().ref(location);
-        databaseRefPut.update(object).then(value => {
-            callback("key");
-            console.log("should save object", location);
+        databaseRefPut.set(item).then(value => {
+            callback(value);
+            console.log("should update,"+location);
         });
     },
     put(location, object, callback) {
         const databaseRefPut = firebase.database().ref(location);
         databaseRefPut.push(object).then(value => {
-            callback(true);
-            console.log("should save object", location);
+            callback(value.key);
+            console.log("should save object", value.key);
         }).catch(value => {
             console.log("foutje");
-            callback(false);
+            callback(null);
         });
 
 
